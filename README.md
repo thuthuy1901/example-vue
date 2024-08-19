@@ -1,33 +1,49 @@
-## Day1:
+## Đối tượng Vue:
 
-### CDN:
-```html
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+### reactivity system:
+```javascript
+    var data = { a: 1 }
+
+    var vm = new Vue({
+        data: data,
+    })
+
+    vm.a == data.a == true
+    data.a = 3 // có thể gán lại vm.a = 3
+    vm.a = 2 // có thể gán lại data.a = 2
 ```
 
-### Use
-index.js
 ```javascript
-    var app3 = new Vue({
-        el: '#id', // id
-        data: {
-            var: "this var" // variable
-        }
+    Object.freeze(data) // không cho cập nhập
+```
+
+### $:
+- Giúp phân biệt thuộc tính: 
+```javascript
+    var data = { a: 1 }
+    var vm = new Vue({
+        el: '#example',
+        data: data,
+    })
+
+    vm.$data === data // => true
+    vm.$el === document.getElementById('example') // => true
+
+    vm.$watch('a', function (newValue, oldValue) {
+        // Hàm callback này sẽ được gọi khi `vm.a` thay đổi
     })
 ```
 
-index.html
-```html
-    <div id="id">
-        {{ var }}
-    </div>
+###  lifecycle hook:
+- Note: Không dùng **arrow func** vì nó ko thể dùng **this**
+```javascript
+    new Vue({
+        data: {
+            a: 1
+        },
+    created: function () {
+        console.log('giá trị của a là ' + this.a)
+    }
+})
 ```
-
-### Directive
-```html
-    <span v-bind:title="message">
-    <span v-if="seen">
-    <li v-for="todo in todos">
-    <button v-on:click="nameFun">Reverse Message</button>
-    <input v-model="message"> //two way binding
-```
+![Alt text](/src/lifecycle.png)

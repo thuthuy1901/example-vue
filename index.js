@@ -1,52 +1,40 @@
-var app3 = new Vue({
-    el: '#app-3',
-    data: {
-        seen: true,
-    },
+//EX1
+var data = { a: 1 }
+
+var vm = new Vue({
+    data: data,
 })
 
-var app4 = new Vue({
-    el: '#app-4',
-    data: {
-        todos: [
-            { text: 'Học JavaScript' },
-            { text: 'Học Vue' },
-            { text: 'Xây dựng cái gì đó hay ho' },
-        ],
-    },
+vm.a == data.a // => true
+
+vm.a = 2
+data.a // => 2
+
+data.a = 3
+vm.a // => 3
+
+//EX2
+var obj = {
+    foo: 0,
+}
+
+Object.freeze(obj)
+
+new Vue({
+    el: '#app',
+    data: obj,
 })
 
-var app5 = new Vue({
-    el: '#app-5',
-    data: {
-        message: 'qua lại khách chờ sông lặng sóng',
-    },
-    methods: {
-        reverseMessage: function () {
-            this.message = this.message.split(' ').reverse().join(' ')
-        },
-    },
+// EX3
+var data = { a: 1 }
+var vm = new Vue({
+    el: '#example',
+    data: data,
 })
 
-var app6 = new Vue({
-    el: '#app-6',
-    data: {
-        message: 'Hãy sửa thông điệp này',
-    },
-})
+vm.$data === data // => true
+vm.$el === document.getElementById('example') // => true
 
-Vue.component('todo-item', {
-    props: ['todo'],
-    template: '<li>{{ todo.text }}</li>',
-})
-
-var app7 = new Vue({
-    el: '#app-7',
-    data: {
-        groceryList: [
-            { id: 0, text: 'Cà pháo' },
-            { id: 1, text: 'Mắm tôm' },
-            { id: 2, text: 'Miễn ăn được là được' },
-        ],
-    },
+vm.$watch('a', function (newValue, oldValue) {
+    // Hàm callback này sẽ được gọi khi `vm.a` thay đổi
 })
