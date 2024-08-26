@@ -1,49 +1,76 @@
-## Đối tượng Vue:
+### directive thông dụng
 
-### reactivity system:
+v-bind: / :
 ```javascript
-    var data = { a: 1 }
-
-    var vm = new Vue({
-        data: data,
-    })
-
-    vm.a == data.a == true
-    data.a = 3 // có thể gán lại vm.a = 3
-    vm.a = 2 // có thể gán lại data.a = 2
+    v-bind:nameHtmlProp="nameVar" // lấy ra biến trong data 
 ```
 
+v-model=
 ```javascript
-    Object.freeze(data) // không cho cập nhập
+    v-model="dataTwoWayBinding" // cập nhập biến hai chiều 
 ```
 
-### $:
-- Giúp phân biệt thuộc tính: 
+v-if=
 ```javascript
-    var data = { a: 1 }
-    var vm = new Vue({
-        el: '#example',
-        data: data,
-    })
-
-    vm.$data === data // => true
-    vm.$el === document.getElementById('example') // => true
-
-    vm.$watch('a', function (newValue, oldValue) {
-        // Hàm callback này sẽ được gọi khi `vm.a` thay đổi
-    })
+    <p v-if="type === 'A'">Type A</p>
+    <p v-else-if="type === 'B'">Type B</p>
+    <p v-else>Other Type</p> 
 ```
 
-###  lifecycle hook:
-- Note: Không dùng **arrow func** vì nó ko thể dùng **this**
+v-for=
 ```javascript
-    new Vue({
-        data: {
-            a: 1
-        },
-    created: function () {
-        console.log('giá trị của a là ' + this.a)
-    }
-})
+    <ul>
+        <li v-for="item in items" :key="item.id">{{ item.name }}</li>
+    </ul>
 ```
-![Alt text](/src/lifecycle.png)
+
+v-on: / @
+```javascript
+    <button v-on:click="handleClick">Click me</button>
+    <button @click="handleClick">Click me</button>
+```
+
+v-show:
+```javascript
+    <p v-show="isVisible">This is conditionally visible</p>
+```
+
+v-html=
+```javascript
+    <div v-html="rawHtml"></div>
+    rawHtml: '<strong>This is bold text</strong>'
+```
+
+v-slot:name / v-slot
+```javascript
+    <!-- ChildComponent.vue -->
+    <template>
+    <div>
+        <header>
+            <slot name="header"></slot>
+        </header>
+        <main>
+            <slot></slot> <!-- Default slot -->
+        </main>
+        <footer>
+            <slot name="footer"></slot>
+        </footer>
+    </div>
+    </template>
+
+    <!-- ParentComponent.vue -->
+    <template>
+        <ChildComponent>
+            <template v-slot:header>
+            <h1>This is the header content</h1>
+            </template>
+
+            <p>This is the main content, using the default slot</p>
+
+            <template v-slot:footer>
+            <p>This is the footer content</p>
+            </template>
+        </ChildComponent>
+    </template>
+```
+

@@ -6,9 +6,13 @@
         <title>Document</title>
     </head>
     <body>
-        <div id="app">
-            <p>{{ foo }}</p>
-            <button @click="foo += 1">Cập nhật đi chứ</button>
+        <div id="Test">
+            <img v-bind:src="srcImg" alt="" width="30" height="30" />
+            <input type="text" v-model="dataInput" />
+            <p>V-model: {{dataInput}}</p>
+            <input type="checkbox" v-model="isShow" />
+            <div v-if="isShow">v-model + v-if</div>
+            <div v-html="htmlContent"></div>
         </div>
 
         <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
