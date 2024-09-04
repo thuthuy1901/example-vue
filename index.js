@@ -1,9 +1,29 @@
-const test = new Vue({
-    el: '#Test',
+var vm = new Vue({
+    el: '#example',
     data: {
-        srcImg: 'https://vi.vuejs.org/images/logo.png',
-        dataInput: '',
-        isShow: true,
-        htmlContent: '<strong>This is bold text</strong>',
+        message: '',
+    },
+    computed: {
+        showMessComputed() {
+            return this.message
+        },
+        showMessComputed2: {
+            get() {
+                return this.message
+            },
+            set(newValue) {
+                this.message = newValue
+            },
+        },
+    },
+    methods: {
+        showMessMethods: function () {
+            return this.message
+        },
+    },
+    watch: {
+        message() {
+            this.showMessComputed2 = ' test'
+        },
     },
 })

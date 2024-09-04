@@ -1,76 +1,45 @@
-### directive thông dụng
+### computed
+- cached, getter, setter
+- chạy get thì data thay đổi
 
-v-bind: / :
 ```javascript
-    v-bind:nameHtmlProp="nameVar" // lấy ra biến trong data 
+    computed: {
+        showMessComputed() {
+            return this.message
+        },
+        showMessComputed2: {
+            get() {
+                return this.message
+            },
+            set(newValue) {
+                this.message = newValue
+            },
+        },
+    },
 ```
 
-v-model=
+### methods
+- gán vào các event Ex: click,...
+
 ```javascript
-    v-model="dataTwoWayBinding" // cập nhập biến hai chiều 
+    methods: {
+        showMessMethods () {
+            return this.message
+        },
+    },
 ```
 
-v-if=
+### watch
+- đặt trùng tên với biến cần theo dõi rồi thực hiện 
+- ko cached, hay dùng cho không đồng bộ 
+
 ```javascript
-    <p v-if="type === 'A'">Type A</p>
-    <p v-else-if="type === 'B'">Type B</p>
-    <p v-else>Other Type</p> 
+    data: {
+        message: '',
+    },
+    watch: {
+        message() {
+            this.showMessComputed2 = ' test'
+        },
+    },
 ```
-
-v-for=
-```javascript
-    <ul>
-        <li v-for="item in items" :key="item.id">{{ item.name }}</li>
-    </ul>
-```
-
-v-on: / @
-```javascript
-    <button v-on:click="handleClick">Click me</button>
-    <button @click="handleClick">Click me</button>
-```
-
-v-show:
-```javascript
-    <p v-show="isVisible">This is conditionally visible</p>
-```
-
-v-html=
-```javascript
-    <div v-html="rawHtml"></div>
-    rawHtml: '<strong>This is bold text</strong>'
-```
-
-v-slot:name / v-slot
-```javascript
-    <!-- ChildComponent.vue -->
-    <template>
-    <div>
-        <header>
-            <slot name="header"></slot>
-        </header>
-        <main>
-            <slot></slot> <!-- Default slot -->
-        </main>
-        <footer>
-            <slot name="footer"></slot>
-        </footer>
-    </div>
-    </template>
-
-    <!-- ParentComponent.vue -->
-    <template>
-        <ChildComponent>
-            <template v-slot:header>
-            <h1>This is the header content</h1>
-            </template>
-
-            <p>This is the main content, using the default slot</p>
-
-            <template v-slot:footer>
-            <p>This is the footer content</p>
-            </template>
-        </ChildComponent>
-    </template>
-```
-
