@@ -1,45 +1,67 @@
-### computed
-- cached, getter, setter
-- chạy get thì data thay đổi
+### Class Binding
+
+#### Object
+- dùng điều kiện để return
 
 ```javascript
-    computed: {
-        showMessComputed() {
-            return this.message
-        },
-        showMessComputed2: {
-            get() {
-                return this.message
-            },
-            set(newValue) {
-                this.message = newValue
-            },
-        },
-    },
-```
+    // class="static active"
+    <div
+        class="static"
+        v-bind:class="{ active: isActive, 'text-danger': hasError }"
+    >
+        test
+    </div> 
 
-### methods
-- gán vào các event Ex: click,...
-
-```javascript
-    methods: {
-        showMessMethods () {
-            return this.message
-        },
-    },
-```
-
-### watch
-- đặt trùng tên với biến cần theo dõi rồi thực hiện 
-- ko cached, hay dùng cho không đồng bộ 
-
-```javascript
     data: {
-        message: '',
+        isActive: true,
+        hasError: false,
     },
-    watch: {
-        message() {
-            this.showMessComputed2 = ' test'
-        },
+```
+
+```javascript
+    <div v-bind:class="classObject">test</div>
+
+    //C1: 
+    data: {
+        classObject: {
+            active: true,
+            'text-danger': false
+        }
+    }
+
+    //C2:
+    data: {
+        isActive: true,
+        error: null
     },
+
+    computed: {
+        classObject () {
+            return {
+            active: this.isActive && !this.error,
+            'text-danger': this.error && this.error.type === 'fatal'
+            }
+        }
+    }
+```
+
+#### Array
+- truyền như biến
+
+```javascript
+    // class="active text-danger"
+    <div v-bind:class="[activeClass, errorClass]">test</div>
+
+    data: {
+        activeClass: 'active',
+        errorClass: 'text-danger'
+    }
+```
+
+```javascript
+    //C1 
+    <div v-bind:class="[isActive ? activeClass : '', errorClass]"></div>
+
+    //C2
+    <div v-bind:class="[{ active: isActive }, errorClass]"></div>
 ```

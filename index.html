@@ -7,11 +7,15 @@
     </head>
     <body>
         <div id="example">
-            <input v-model="message" />
-            <p>{{showMessComputed}}</p>
-            <p>{{showMessComputed2}}</p>
-            <p>{{showMessMethods()}}</p>
+            <div
+                class="static"
+                v-bind:class="{ active: isActive, 'text-danger': hasError }"
+            >
+                test
+            </div>
         </div>
+
+        <my-component class="baz qux"></my-component>
 
         <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
         <script src="./index.js"></script>

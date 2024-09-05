@@ -1,29 +1,11 @@
 var vm = new Vue({
     el: '#example',
     data: {
-        message: '',
+        isActive: true,
+        hasError: false,
     },
-    computed: {
-        showMessComputed() {
-            return this.message
-        },
-        showMessComputed2: {
-            get() {
-                return this.message
-            },
-            set(newValue) {
-                this.message = newValue
-            },
-        },
-    },
-    methods: {
-        showMessMethods: function () {
-            return this.message
-        },
-    },
-    watch: {
-        message() {
-            this.showMessComputed2 = ' test'
-        },
-    },
+})
+
+Vue.component('my-component', {
+    template: '<p class="foo bar">test2</p>',
 })
