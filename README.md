@@ -1,52 +1,66 @@
-### v-if
-- điều kiện để ẩn/show trong dom
+### v-for
+
+#### show
+- in/ of như nhau
 
 ```javascript
-    <div id="example">
-        <button @click="toggleButton">click</button>
-        <p v-if="isActive">0</p>
-        <p v-else-if="isActive === false">1</p>
-        <template v-else>
-            <p>3</p>
-            <p>4</p>
-        </template>
-    </div>
+    // Array 
+    <li v-for="(item, index) in items">
+
+    // Object
+    <div v-for="(value, key, index) in object">
+```
+
+#### xử lý phức tạp
+
+```javascript
+    <input
+        v-model="newTodoText"
+        v-on:keyup.enter="addNewTodo"
+        placeholder="Thêm việc cần làm"
+    />
+    <ul>
+        <li
+            is="todo-item" // name component
+            v-for="(todo, index) in todos" 
+            v-bind:key="todo.id"
+            v-bind:title="todo.title" // props
+            v-on:remove="todos.splice(index, 1)" // hàm xóa truyeefnn vào
+        ></li>
+    </ul>
+
+    // component item
+    Vue.component('todo-item', {
+        template:
+            '\
+                <li>\
+                {{ title }}\
+                <button v-on:click="$emit(\'remove\')">X</button>\
+                </li>\
+            ',
+        props: ['title'],
+    })
 
     new Vue({
-        el: '#example',
+        el: '#todo-list-example',
         data: {
-            isActive: '',
+            newTodoText: '',
+            todos: [
+                {
+                    id: 1,
+                    title: 'luộc khoai',
+                },
+            ],
+            nextTodoId: 2,
         },
         methods: {
-            toggleButton() {
-                this.isActive = !this.isActive
+            addNewTodo: function () {
+                this.todos.push({
+                    id: this.nextTodoId++,
+                    title: this.newTodoText,
+                })
+                this.newTodoText = ''
             },
         },
     })
-```
-
-### v-show
-- display: none
-
-```javascript
-    <div id="example">
-        <div v-show="show">test</div>
-    </div>
-
-    data: {
-        show: false,
-    }
-```
-
-#### v-for
-- dùng key để phân biệt không giá trị ô input sẽ ko bị thay đổi theo
-
-```javascript
-    <div id="app">
-        <div v-for="item in items" style="display: flex" :key="item.id">
-            <p>{{item.value}}</p>
-            <input type="text" />
-        </div>
-        <button @click="shuffleItems">Shuffle Items</button>
-    </div>
 ```

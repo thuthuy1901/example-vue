@@ -1,28 +1,78 @@
 new Vue({
-    el: '#example',
+    el: '#example-1',
     data: {
-        isActive: '',
-        show: false,
+        items: [{ name: 'Cà phê' }, { name: 'Trà đặc' }, { name: 'Bò húc' }],
     },
-    methods: {
-        toggleButton() {
-            this.isActive = !this.isActive
+})
+
+new Vue({
+    el: '#example-2',
+    data: {
+        parentMessage: 'Parent',
+        items: [{ name: 'Cà phê' }, { name: 'Trà đặc' }, { name: 'Bò húc' }],
+    },
+})
+
+new Vue({
+    el: '#v-for-object',
+    data: {
+        object: {
+            họ: 'Bành',
+            tên: 'Tổ',
+            tuổi: 800,
         },
     },
 })
 
 new Vue({
-    el: '#app',
+    el: '#test',
     data: {
-        items: [
-            { id: 1, value: 'Item 1' },
-            { id: 2, value: 'Item 2' },
-            { id: 3, value: 'Item 3' },
+        show: true,
+    },
+})
+
+Vue.component('todo-item', {
+    template:
+        '\
+            <li>\
+            {{ title }}\
+            <button v-on:click="$emit(\'remove\')">X</button>\
+            </li>\
+        ',
+    props: ['title'],
+})
+
+new Vue({
+    el: '#todo-list-example',
+    data: {
+        newTodoText: '',
+        todos: [
+            {
+                id: 1,
+                title: 'luộc khoai',
+            },
+            {
+                id: 2,
+                title: 'cùng chị giã gạo',
+            },
+            {
+                id: 3,
+                title: 'thổi cơm',
+            },
+            {
+                id: 4,
+                title: 'nhổ cỏ vườn',
+            },
         ],
+        nextTodoId: 5,
     },
     methods: {
-        shuffleItems() {
-            this.items = this.items.sort(() => Math.random() - 0.5)
+        addNewTodo: function () {
+            this.todos.push({
+                id: this.nextTodoId++,
+                title: this.newTodoText,
+            })
+            this.newTodoText = ''
         },
     },
 })
