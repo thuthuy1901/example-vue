@@ -7,32 +7,12 @@
     </head>
     <body>
         <div id="components-demo">
-            <button-counter></button-counter>
-            <button-counter></button-counter>
-            <blog-post title="Giới thiệu về Vue"></blog-post>
-            <blog-post title="Các khái niệm trong Vue"></blog-post>
-            <blog-post title="Vue căn bản và vô cùng nâng cao"></blog-post>
-            <blog-post
-                v-for="post in posts"
-                v-bind:key="post.id"
-                v-bind:title="post.title"
-            ></blog-post>
-        </div>
-
-        <div id="blog-posts-events-demo">
-            <div :style="{ fontSize: postFontSize + 'em' }">
-                <blog-post2
-                    v-for="post in posts"
-                    v-bind:key="post.id"
-                    v-bind:post="post"
-                    v-on:enlarge-text="postFontSize += $event"
-                    v-on:downlarge-text="downLargeText($event)"
-                ></blog-post2>
-            </div>
-            <custom-input
-                v-bind:value="searchText"
-                v-on:input="searchText = $event"
-            ></custom-input>
+            <my-component
+                v-model="username"
+                class="username-input"
+                placeholder="Enter your username"
+                label="labelTest"
+            ></my-component>
         </div>
         <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
         <script src="./index.js"></script>
