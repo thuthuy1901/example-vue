@@ -1,78 +1,48 @@
 new Vue({
-    el: '#example-1',
+    el: '#example',
     data: {
-        items: [{ name: 'Cà phê' }, { name: 'Trà đặc' }, { name: 'Bò húc' }],
+        message: '',
     },
 })
 
 new Vue({
-    el: '#example-2',
+    el: '#example',
     data: {
-        parentMessage: 'Parent',
-        items: [{ name: 'Cà phê' }, { name: 'Trà đặc' }, { name: 'Bò húc' }],
+        checked: false,
     },
 })
 
 new Vue({
-    el: '#v-for-object',
+    el: '#example-3',
     data: {
-        object: {
-            họ: 'Bành',
-            tên: 'Tổ',
-            tuổi: 800,
-        },
+        checkedNames: [],
     },
 })
 
 new Vue({
-    el: '#test',
+    el: '#ex-4',
     data: {
-        show: true,
+        selected: '',
     },
 })
 
-Vue.component('todo-item', {
-    template:
-        '\
-            <li>\
-            {{ title }}\
-            <button v-on:click="$emit(\'remove\')">X</button>\
-            </li>\
-        ',
-    props: ['title'],
-})
-
 new Vue({
-    el: '#todo-list-example',
+    el: '#ex-5',
     data: {
-        newTodoText: '',
-        todos: [
-            {
-                id: 1,
-                title: 'luộc khoai',
-            },
-            {
-                id: 2,
-                title: 'cùng chị giã gạo',
-            },
-            {
-                id: 3,
-                title: 'thổi cơm',
-            },
-            {
-                id: 4,
-                title: 'nhổ cỏ vườn',
-            },
+        selected: '50k',
+        options: [
+            { text: 'Đọt bí xào tỏi', value: '50k' },
+            { text: 'Canh bông điên điển', value: '30k' },
+            { text: 'Lẩu nấm', value: '45k' },
         ],
-        nextTodoId: 5,
     },
-    methods: {
-        addNewTodo: function () {
-            this.todos.push({
-                id: this.nextTodoId++,
-                title: this.newTodoText,
-            })
-            this.newTodoText = ''
-        },
+})
+
+new Vue({
+    el: '#app',
+    data: {
+        message: '',
+        age: 0,
+        msg: '',
     },
 })

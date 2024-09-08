@@ -6,47 +6,74 @@
         <title>Document</title>
     </head>
     <body>
-        <ul id="example-1">
-            <li v-for="item of items">{{ item.name }}</li>
-        </ul>
-
-        <ul id="example-2">
-            <li v-for="(item, index) in items">
-                {{ parentMessage }} - {{ index }} - {{ item.name }}
-            </li>
-        </ul>
-
-        <ul id="v-for-object" class="demo">
-            <div v-for="(value, key, index) in object">
-                {{ index }}. {{ key }}: {{ value }}
-            </div>
-        </ul>
-
-        <div id="test">
-            <div v-if="show">
-                <input type="text" placeholder="1" :key="1" />
-            </div>
-            <div v-else>
-                <input type="text" placeholder="2" :key="2" />
-            </div>
-            <button @click="show = !show">toggle</button>
+        <div id="example">
+            <span>Thông điệp có nhiều dòng:</span>
+            <p style="white-space: pre-line">{{ message }}</p>
+            <br />
+            <textarea
+                v-model="message"
+                placeholder="Nhập văn bản có nhiều dòng"
+            ></textarea>
+            <input type="text" v-model="message" />
         </div>
 
-        <div id="todo-list-example">
+        <div id="ex-2">
+            <input type="checkbox" id="checkbox" v-model="checked" />
+            <label for="checkbox">{{ checked.toString() }}</label>
+        </div>
+
+        <div id="example-3">
             <input
-                v-model="newTodoText"
-                v-on:keyup.enter="addNewTodo"
-                placeholder="Thêm việc cần làm"
+                type="checkbox"
+                id="com-chien-toi"
+                value="Cơm chiên tỏi"
+                v-model="checkedNames"
             />
-            <ul>
-                <li
-                    is="todo-item"
-                    v-for="(todo, index) in todos"
-                    v-bind:key="todo.id"
-                    v-bind:title="todo.title"
-                    v-on:remove="todos.splice(index, 1)"
-                ></li>
-            </ul>
+            <label for="com-chien-toi">Cơm chiên tỏi</label><br />
+            <input
+                type="checkbox"
+                id="dot-bi-xao-toi"
+                value="Đọt bí xào tỏi"
+                v-model="checkedNames"
+            />
+            <label for="dot-bi-xao-toi">Đọt bí xào tỏi</label><br />
+            <input
+                type="checkbox"
+                id="canh-rau-rung"
+                value="Canh rau rừng"
+                v-model="checkedNames"
+            />
+            <label for="canh-rau-rung">Canh rau rừng</label>
+            <br />
+            <span>Món đã chọn: {{ checkedNames }}</span>
+        </div>
+
+        <div id="ex-4">
+            <select v-model="selected" multiple>
+                <option disabled value="">Vui lòng chọn món</option>
+                <option>Đọt bí xào tỏi</option>
+                <option>Canh bông điên điển</option>
+                <option>Lẩu nấm</option>
+            </select>
+            <span>Món đã chọn: {{ selected }}</span>
+        </div>
+
+        <div id="ex-5">
+            <select v-model="selected">
+                <option v-for="option in options" v-bind:value="option.value">
+                    {{ option.text }}
+                </option>
+            </select>
+            <span>Giá tiền: {{ selected }}</span>
+        </div>
+
+        <div id="app">
+            <input v-model.lazy="message" />
+            <p>{{ message }}</p>
+            <input v-model.number="age" type="number" />
+            <p>{{ age }}</p>
+            <input v-model.trim="msg" />
+            <p>{{msg}}</p>
         </div>
 
         <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>

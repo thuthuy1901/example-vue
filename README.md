@@ -1,66 +1,40 @@
-### v-for
-
-#### show
-- in/ of như nhau
+### v-model
 
 ```javascript
-    // Array 
-    <li v-for="(item, index) in items">
+    <textarea v-model="message" ></textarea>
 
-    // Object
-    <div v-for="(value, key, index) in object">
+    <input v-model="message" />
 ```
 
-#### xử lý phức tạp
+```javascript
+    <div id="ex-5">
+        <select v-model="selected">
+            <option v-for="option in options" v-bind:value="option.value">
+                {{ option.text }}
+            </option>
+        </select>
+        <span>Giá tiền: {{ selected }}</span>
+    </div>
+
+    data: {
+        selected: '50k',
+        options: [
+            { text: 'Đọt bí xào tỏi', value: '50k' },
+            { text: 'Canh bông điên điển', value: '30k' },
+            { text: 'Lẩu nấm', value: '45k' },
+        ],
+    },
+```
+
+#### modifier
 
 ```javascript
-    <input
-        v-model="newTodoText"
-        v-on:keyup.enter="addNewTodo"
-        placeholder="Thêm việc cần làm"
-    />
-    <ul>
-        <li
-            is="todo-item" // name component
-            v-for="(todo, index) in todos" 
-            v-bind:key="todo.id"
-            v-bind:title="todo.title" // props
-            v-on:remove="todos.splice(index, 1)" // hàm xóa truyeefnn vào
-        ></li>
-    </ul>
+    // click ra ngoài hoặc ấn enter mới cập nhập
+    <input v-model.lazy="message" />
 
-    // component item
-    Vue.component('todo-item', {
-        template:
-            '\
-                <li>\
-                {{ title }}\
-                <button v-on:click="$emit(\'remove\')">X</button>\
-                </li>\
-            ',
-        props: ['title'],
-    })
+    // chỉ nhập số
+    <input v-model.number="age" type="number" />
 
-    new Vue({
-        el: '#todo-list-example',
-        data: {
-            newTodoText: '',
-            todos: [
-                {
-                    id: 1,
-                    title: 'luộc khoai',
-                },
-            ],
-            nextTodoId: 2,
-        },
-        methods: {
-            addNewTodo: function () {
-                this.todos.push({
-                    id: this.nextTodoId++,
-                    title: this.newTodoText,
-                })
-                this.newTodoText = ''
-            },
-        },
-    })
+    // bỏ nhiều space trước và trong text
+    <input v-model.trim="msg" />
 ```
