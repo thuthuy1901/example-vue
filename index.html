@@ -6,76 +6,34 @@
         <title>Document</title>
     </head>
     <body>
-        <div id="example">
-            <span>Thông điệp có nhiều dòng:</span>
-            <p style="white-space: pre-line">{{ message }}</p>
-            <br />
-            <textarea
-                v-model="message"
-                placeholder="Nhập văn bản có nhiều dòng"
-            ></textarea>
-            <input type="text" v-model="message" />
+        <div id="components-demo">
+            <button-counter></button-counter>
+            <button-counter></button-counter>
+            <blog-post title="Giới thiệu về Vue"></blog-post>
+            <blog-post title="Các khái niệm trong Vue"></blog-post>
+            <blog-post title="Vue căn bản và vô cùng nâng cao"></blog-post>
+            <blog-post
+                v-for="post in posts"
+                v-bind:key="post.id"
+                v-bind:title="post.title"
+            ></blog-post>
         </div>
 
-        <div id="ex-2">
-            <input type="checkbox" id="checkbox" v-model="checked" />
-            <label for="checkbox">{{ checked.toString() }}</label>
+        <div id="blog-posts-events-demo">
+            <div :style="{ fontSize: postFontSize + 'em' }">
+                <blog-post2
+                    v-for="post in posts"
+                    v-bind:key="post.id"
+                    v-bind:post="post"
+                    v-on:enlarge-text="postFontSize += $event"
+                    v-on:downlarge-text="downLargeText($event)"
+                ></blog-post2>
+            </div>
+            <custom-input
+                v-bind:value="searchText"
+                v-on:input="searchText = $event"
+            ></custom-input>
         </div>
-
-        <div id="example-3">
-            <input
-                type="checkbox"
-                id="com-chien-toi"
-                value="Cơm chiên tỏi"
-                v-model="checkedNames"
-            />
-            <label for="com-chien-toi">Cơm chiên tỏi</label><br />
-            <input
-                type="checkbox"
-                id="dot-bi-xao-toi"
-                value="Đọt bí xào tỏi"
-                v-model="checkedNames"
-            />
-            <label for="dot-bi-xao-toi">Đọt bí xào tỏi</label><br />
-            <input
-                type="checkbox"
-                id="canh-rau-rung"
-                value="Canh rau rừng"
-                v-model="checkedNames"
-            />
-            <label for="canh-rau-rung">Canh rau rừng</label>
-            <br />
-            <span>Món đã chọn: {{ checkedNames }}</span>
-        </div>
-
-        <div id="ex-4">
-            <select v-model="selected" multiple>
-                <option disabled value="">Vui lòng chọn món</option>
-                <option>Đọt bí xào tỏi</option>
-                <option>Canh bông điên điển</option>
-                <option>Lẩu nấm</option>
-            </select>
-            <span>Món đã chọn: {{ selected }}</span>
-        </div>
-
-        <div id="ex-5">
-            <select v-model="selected">
-                <option v-for="option in options" v-bind:value="option.value">
-                    {{ option.text }}
-                </option>
-            </select>
-            <span>Giá tiền: {{ selected }}</span>
-        </div>
-
-        <div id="app">
-            <input v-model.lazy="message" />
-            <p>{{ message }}</p>
-            <input v-model.number="age" type="number" />
-            <p>{{ age }}</p>
-            <input v-model.trim="msg" />
-            <p>{{msg}}</p>
-        </div>
-
         <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
         <script src="./index.js"></script>
     </body>
